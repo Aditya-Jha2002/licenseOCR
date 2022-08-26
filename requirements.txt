@@ -1,0 +1,14 @@
+opencv-python
+gunicorn
+flake8
+numpy 
+scipy
+pytesseract
+Pillow
+python-multipart
+pydantic
+fastapi
+uvicorn
+gunicorn==19.9.0
+uvloop
+httptools
