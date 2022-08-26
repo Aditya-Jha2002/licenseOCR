@@ -1,5 +1,6 @@
 import os
 import shutil
+import requests
 import pandas as pd
 from fastapi import FastAPI, UploadFile, File, Form
 from prediction_service.taadhar import get_text
@@ -11,9 +12,14 @@ upload_path = os.path.join(static_dir, "id.png")
 data_path = os.path.join(static_dir, "license_data.csv")
 
 @app.post("/")
-async def root(name: str = Form(), contact: int = Form(), license_img: str = Form()):
-    with open(upload_path, "wb") as buffer:
-        shutil.copyfileobj(license_img.file, buffer)
+async def root(name: str = Form(), contact: int = Form(), img_url: str = Form()):
+    res = requests.get(img_url, stream = True)
+    if res.status_code == 200:
+        with open(upload_path,'wb') as f:
+            shutil.copyfileobj(res.raw, f)
+        print('Image sucessfully Downloaded: ',upload_path)
+    else:
+        print('Image Couldn\'t be retrieved')
 
     name_doc, contact_doc, rci = get_text(upload_path)
     contact_doc = int(contact_doc)
