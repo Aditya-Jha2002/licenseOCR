@@ -1,11 +1,9 @@
-This document for OCR
-
-![Aadhaar to JSON](AadhaarCardOCR1.jpg?raw=true "Aadhaar Card image")
+This is a python model for extracting info from id
 
 *****************************************************
 Problem:
 *****************************************************
-	Extract information from image of Aadhaar Card by OCR in proper format.
+	Extract information from image of RCI License by OCR in proper format.
 		Information like - 
 					Name, Year of Birth, Gender, UID
 
@@ -20,37 +18,30 @@ Solution:
 		-> give to tesseract
 		-> text(output of tesseract)
 	Now we will process this text means we will get meaningful information from it.
-		-> find name using name database
-		-> find gender
-		-> find year of birth
-		-> find for Aadhar ID(UID)
-	for verfication please see aadhar_detail.txt file
+		-> find name
+		-> find phone number
+		-> find for RCI Id
+	then we will validate the data with the info provided by the user, and the license.
 	
 *****************************************************
 Dependent packages
 *****************************************************
-	-python
-	-opencv
-	-numpy
-	-pytesseract
-	-JSON
-	-difflib
-	-csv
-	-PIL
-	-SciPy
-	-dataparser
+use the command
+'''pip install -r requirements.txt'''
+then run
+'''uvicorn app:app --reload'''
 
 
 *****************************************************
 Structure and Usage
 *****************************************************
 	Directories:
-		src-
-			which contains code files		
-		testcases-
-			which contains testing images
-		result
-			it contains JSON object
+		prediction_service -
+			which contains code files for prediction service		
+		static -
+			place to store static file
+		app.py - 
+			fast_api file
 			
 	Usage:
 		python file_name.py [input image]
